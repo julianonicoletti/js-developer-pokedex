@@ -12,9 +12,27 @@ function convertPokeApiDetailtoPokemon(pokeDetail) {
     pokemon.types = types
     pokemon.type = type
 
+    pokemon.stats = extractStats(pokeDetail);
+
     pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
     return pokemon
 
+}
+
+function extractStats(pokeDetail) {
+    const statsArray = pokeDetail.stats
+    .filter((statData) => {
+        const statusEscolhidos = ["hp", "attack", "defense", "speed"];
+        return statusEscolhidos.includes(statData.stat.name);
+    })
+    .map((statData) => {
+        return {
+            name: statData.stat.name,
+            base_stat: statData.base_stat,
+        };
+    });
+
+    return statsArray;
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {

@@ -4,5 +4,7 @@ class Pokemon {
     name;
     type;
     types = [];
+    statusName = [];
+    statusValor = [];
     photo;
 }
